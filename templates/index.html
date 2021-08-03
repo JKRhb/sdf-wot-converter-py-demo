@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% import "macros.html" as m %}
+
+{% block styles %}
+  <style>
+    .container {
+      --grid-maxWidth: 100%;
+      margin: 0 auto;
+      padding: 20px 10px;
+    }
+
+    textarea {
+      height: 78vh;
+      font-size: 0.8em;
+      font-family: var(--font-family-mono);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+    }
+
+    .flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .model-type-select {
+      width: initial;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+    <h1>SDF WoT converter</h1>
+
+    {% if error %} 
+      <p class="card text-error">
+        Error: {{ error }}
+      </p>
+    {% endif %}
+
+    <form action="/" method="post" enctype="multipart/form-data">
+        {% if not input1 %} 
+          {% set input1 = "" %}
+        {% endif %}
+        {% if not input2 %} 
+          {% set input2 = "" %}
+        {% endif %}
+
+        <section class="grid">
+          <div>
+            <div class="flex">
+              <select class="model-type-select" name="input1_type" id="input1_type">
+                <option value="SDF">SDF</option>
+                <option value="WoT TM">WoT TM</option>
+              </select>
+              <input class="button" type="submit" name="submit_input1" value="­»">
+            </div>
+            {{m.textarea(
+                  "input1",
+                  placeholder="An SDF model",
+                  value=input1
+              )
+            }}
+          </div>
+
+          <div>
+            <div class="flex">
+              <input class="button" type="submit" name="submit_input2" value="­«">
+              <select class="model-type-select" name="input2_type" id="input2_type">
+                <option value="WoT TM">WoT TM</option>
+                <option value="SDF">SDF</option>
+              </select>
+            </div>
+            {{m.textarea(
+                  "input2",
+                  placeholder="A WoT model",
+                  value=input2
+              )
+            }}
+          </div>
+        </section>
+        <br>
+        <button type="reset">Reset input</button>
+    </form>
+{% endblock %}
