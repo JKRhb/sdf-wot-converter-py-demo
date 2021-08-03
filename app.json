@@ -1,0 +1,6 @@
+{
+    "name": "SDF WoT Converter",
+    "description": "Demo web app for an SDF WoT Converter",
+    "repository": "https://github.com/JKRhb/sdf-wot-converter-py-demo",
+    "keywords": ["SDF", "Web of Things"]
+}
