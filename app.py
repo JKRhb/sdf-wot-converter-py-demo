@@ -68,5 +68,4 @@ def hello_world():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    print(error)
     return render_template("error/404.html", error=error, code=404), 404
