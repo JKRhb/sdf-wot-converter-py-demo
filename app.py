@@ -2,8 +2,8 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import url_for
-from converter import convert_sdf_to_wot_tm_from_json
-from converter import convert_wot_tm_to_sdf_from_json
+from sdf_wot_converter import convert_sdf_to_wot_tm_from_json
+from sdf_wot_converter import convert_wot_tm_to_sdf_from_json
 
 app = Flask(__name__)
 
