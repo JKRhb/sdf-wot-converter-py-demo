@@ -47,9 +47,22 @@ def hello_world():
                     else:
                         input1 = input2
         except Exception as e:
-            return render_template("index.html", input1=input1, input2=input2, error=e)
+            return render_template(
+                "index.html",
+                input1=input1,
+                input2=input2,
+                input1_type=input1_type,
+                input2_type=input2_type,
+                error=e,
+            )
 
-        return render_template("index.html", input1=input1, input2=input2)
+        return render_template(
+            "index.html",
+            input1=input1,
+            input2=input2,
+            input1_type=input1_type,
+            input2_type=input2_type,
+        )
     return render_template("index.html")
 
 

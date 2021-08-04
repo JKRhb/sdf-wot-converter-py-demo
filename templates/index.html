@@ -53,8 +53,8 @@
           <div>
             <div class="flex">
               <select class="model-type-select" name="input1_type" id="input1_type">
-                <option value="SDF">SDF</option>
-                <option value="WoT TM">WoT TM</option>
+                <option value="SDF"{% if input1_type == "SDF"%}selected{% endif %}>SDF</option>
+                <option value="WoT TM"{% if input1_type == "WoT TM"%}selected{% endif %}>WoT TM</option>
               </select>
               <input class="button" type="submit" name="submit_input1" value="­»">
             </div>
@@ -70,8 +70,8 @@
             <div class="flex">
               <input class="button" type="submit" name="submit_input2" value="­«">
               <select class="model-type-select" name="input2_type" id="input2_type">
-                <option value="WoT TM">WoT TM</option>
-                <option value="SDF">SDF</option>
+                <option value="WoT TM"{% if input2_type == "WoT TM"%}selected{% endif %}>WoT TM</option>
+                <option value="SDF"{% if input2_type == "SDF"%}selected{% endif %}>SDF</option>
               </select>
             </div>
             {{m.textarea(
