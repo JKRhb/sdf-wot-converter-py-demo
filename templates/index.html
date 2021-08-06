@@ -64,6 +64,9 @@
                   value=input1
               )
             }}
+            <div class="button" onclick="clearInput('input1')">Clear</div>
+            <div class="button" onclick="fillExample('input1')">Insert Example</div>
+            <div class="button" onclick="formatInput('input1')">Format</div>
           </div>
 
           <div>
@@ -80,9 +83,106 @@
                   value=input2
               )
             }}
+            <div class="button" onclick="clearInput('input2')">Clear</div>
+            <div class="button" onclick="fillExample('input2')">Insert Example</div>
+            <div class="button" onclick="formatInput('input2')">Format</div>
           </div>
         </section>
-        <br>
-        <button type="reset">Reset input</button>
     </form>
+
+    <script>
+
+      const sdfExample = {
+        info: {
+          title: "Example file for OneDM Semantic Definition Format",
+          version: "2019-04-24",
+          copyright: "Copyright 2019 Example Corp. All rights reserved.",
+          license: "https://example.com/license",
+        },
+        namespace: { cap: "https://example.com/capability/cap" },
+        defaultNamespace: "cap",
+        sdfObject: {
+          Switch: {
+            sdfProperty: {
+              value: {
+                description:
+                  "The state of the switch; false for off and true for on.",
+                type: "boolean",
+              },
+            },
+            sdfAction: {
+              on: {
+                description:
+                  "Turn the switch on; equivalent to setting value to true.",
+              },
+              off: {
+                description:
+                  "Turn the switch off; equivalent to setting value to false.",
+              },
+              toggle: {
+                description:
+                  "Toggle the switch; equivalent to setting value to its complement.",
+              },
+            },
+          },
+        },
+      };
+      
+      const tmExample = {
+        "@context": ["http://www.w3.org/ns/td"],
+        "@type": "tm:ThingModel",
+        title: "Lamp Thing Model",
+        properties: {
+          status: {
+            description: "current status of the lamp (on|off)",
+            type: "string",
+            readOnly: true,
+          },
+        },
+        actions: {
+          toggle: {
+            description: "Turn the lamp on or off",
+          },
+        },
+        events: {
+          overheating: {
+            description: "Lamp reaches a critical temperature (overheating)",
+            data: { type: "string" },
+          },
+        },
+      };
+    
+      function fillInput(selector, content) {
+        const element = document.getElementById(selector);
+        element.value = content;
+        element.focus();
+      }
+
+      function formatInput(selector) {
+        const currentInput = document.getElementById(selector).value;
+        const formattedInput = stringifyModel(JSON.parse(currentInput));
+        fillInput(selector, formattedInput);
+      }
+
+      function stringifyModel(model) {
+        return JSON.stringify(model, null, 2);
+      }
+
+      function fillExample(selector) {
+        const type_input = document.getElementById(selector + "_type");
+        const inputType = type_input.options[type_input.selectedIndex].text;
+        let content = "";
+        if (inputType === "SDF") {
+          content = stringifyModel(sdfExample);
+        } else if (inputType === "WoT TM") {
+          content = stringifyModel(tmExample);
+        }
+        fillInput(selector, content);
+      }
+
+      function clearInput(selector) {
+        fillInput(selector, "");
+      }
+
+    </script>
 {% endblock %}
