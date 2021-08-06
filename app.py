@@ -17,6 +17,7 @@ def hello_world():
         input2_type = request.form["input2_type"]
         input1 = request.form["input1"]
         input2 = request.form["input2"]
+        indentation = 2
 
         if request.form.get("submit_input2"):
             direction = "left"
@@ -27,9 +28,9 @@ def hello_world():
             if input1_type == "SDF":
                 if input2_type == "WoT TM":
                     if direction == "right":
-                        input2 = convert_sdf_to_wot_tm_from_json(input1)
+                        input2 = convert_sdf_to_wot_tm_from_json(input1, indent=indentation)
                     else:
-                        input1 = convert_wot_tm_to_sdf_from_json(input2)
+                        input1 = convert_wot_tm_to_sdf_from_json(input2, indent=indentation)
                 elif input2_type == "SDF":
                     if direction == "right":
                         input2 = input1
@@ -38,9 +39,9 @@ def hello_world():
             elif input1_type == "WoT TM":
                 if input2_type == "SDF":
                     if direction == "right":
-                        input2 = convert_wot_tm_to_sdf_from_json(input1)
+                        input2 = convert_wot_tm_to_sdf_from_json(input1, indent=indentation)
                     else:
-                        input1 = convert_sdf_to_wot_tm_from_json(input2)
+                        input1 = convert_sdf_to_wot_tm_from_json(input2, indent=indentation)
                 elif input2_type == "WoT TM":
                     if direction == "right":
                         input2 = input1
