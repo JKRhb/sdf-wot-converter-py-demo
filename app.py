@@ -28,9 +28,13 @@ def hello_world():
             if input1_type == "SDF":
                 if input2_type == "WoT TM":
                     if direction == "right":
-                        input2 = convert_sdf_to_wot_tm_from_json(input1, indent=indentation)
+                        input2 = convert_sdf_to_wot_tm_from_json(
+                            input1, indent=indentation
+                        )
                     else:
-                        input1 = convert_wot_tm_to_sdf_from_json(input2, indent=indentation)
+                        input1 = convert_wot_tm_to_sdf_from_json(
+                            input2, indent=indentation
+                        )
                 elif input2_type == "SDF":
                     if direction == "right":
                         input2 = input1
@@ -39,9 +43,13 @@ def hello_world():
             elif input1_type == "WoT TM":
                 if input2_type == "SDF":
                     if direction == "right":
-                        input2 = convert_wot_tm_to_sdf_from_json(input1, indent=indentation)
+                        input2 = convert_wot_tm_to_sdf_from_json(
+                            input1, indent=indentation
+                        )
                     else:
-                        input1 = convert_sdf_to_wot_tm_from_json(input2, indent=indentation)
+                        input1 = convert_sdf_to_wot_tm_from_json(
+                            input2, indent=indentation
+                        )
                 elif input2_type == "WoT TM":
                     if direction == "right":
                         input2 = input1
