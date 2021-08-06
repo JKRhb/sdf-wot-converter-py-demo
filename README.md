@@ -1,6 +1,6 @@
 SDF WoT Converter Demo
 =================
 
-Demo web app for an SDF WoT Converter. Realized with flask.
+Demo web app for my [SDF WoT Converter](https://github.com/JKRhb/sdf-wot-converter-py). Realized with Flask.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+You can visit try out the converter application at https://sdf-wot-converter.herokuapp.com/.
