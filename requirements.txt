@@ -1,4 +1,4 @@
-﻿attrs==21.3.0
+﻿attrs==21.4.0
 click==8.1.0
 colorama==0.4.4
 Flask==2.1.0
