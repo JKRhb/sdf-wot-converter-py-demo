@@ -10,6 +10,6 @@ jsonpointer==2.3
 jsonschema==4.4.0
 MarkupSafe==2.1.1
 pyrsistent==0.18.1
-sdf-wot-converter==0.7.0
+sdf-wot-converter==0.8.0
 six==1.16.0
 Werkzeug==2.1.1
