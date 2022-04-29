@@ -12,4 +12,4 @@ MarkupSafe==2.1.1
 pyrsistent==0.18.1
 sdf-wot-converter==0.9.1
 six==1.16.0
-Werkzeug==2.1.1
+Werkzeug==2.1.2
