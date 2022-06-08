@@ -32,6 +32,8 @@
   </style>
 {% endblock %}
 
+{% set placeholder = "SDF or WoT Document" %}
+
 {% block content %}
     <h1>SDF WoT converter</h1>
 
@@ -81,7 +83,7 @@
             </div>
             {{m.textarea(
                   "input2",
-                  placeholder="A WoT model",
+                  placeholder=placeholder,
                   value=input2
               )
             }}
