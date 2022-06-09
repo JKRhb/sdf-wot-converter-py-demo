@@ -1,4 +1,5 @@
 from typing import Dict
+from flask import Flask, render_template, request, url_for, jsonify
 from sdf_wot_converter import (
     convert_sdf_to_wot_td,
     convert_sdf_to_wot_tm,
@@ -10,6 +11,14 @@ from sdf_wot_converter import (
 import json
 
 app = Flask(__name__)
+
+
+@app.route("/convert/<command>", methods=["POST"])
+def convert(command):
+    if request.is_json:
+        input = request.json
+
+        return jsonify(_use_command(command, input))
 
 
 @app.route("/", methods=["GET", "POST"])
