@@ -50,6 +50,12 @@
         {% if not input2 %}
           {% set input2 = "" %}
         {% endif %}
+        {% if not input1_type %}
+          {% set input1_type = "sdf" %}
+        {% endif %}
+        {% if not input2_type %}
+          {% set input2_type = "tm" %}
+        {% endif %}
 
         <section class="grid">
           <div>
