@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for
+from typing import Dict
 from sdf_wot_converter import (
     convert_sdf_to_wot_td,
     convert_sdf_to_wot_tm,
@@ -47,6 +47,11 @@ def _process_inputs(request):
     if command is None:
         raise Exception("Unknown command")
 
+    output = _use_command(command, input)
+    return _dump_output(request, output)
+
+
+def _use_command(command: str, input: Dict):
     input, sdf_mapping_files = _get_sdf_input(command, input)
 
     if command == "sdf-to-tm":
@@ -64,7 +69,7 @@ def _process_inputs(request):
     else:
         output = input
 
-    return _dump_output(request, output)
+    return output
 
 
 def _get_sdf_input(command: str, input):
