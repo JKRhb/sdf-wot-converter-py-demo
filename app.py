@@ -1,7 +1,4 @@
-from flask import Flask
-from flask import render_template
-from flask import request
-from flask import url_for
+from flask import Flask, render_template, request, url_for
 from sdf_wot_converter import (
     convert_sdf_to_wot_td,
     convert_sdf_to_wot_tm,
