@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=["GET", "POST"])
-def hello_world():
+def index():
     url_for("static", filename="chota.min.css")
     input1 = None
     input2 = None
