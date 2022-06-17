@@ -56,6 +56,9 @@
         {% if not input2_type %}
           {% set input2_type = "tm" %}
         {% endif %}
+        {% if output_mapping_files == None %}
+          {% set output_mapping_files = True %}
+        {% endif %}
 
         <section class="grid">
           <div>
@@ -97,6 +100,12 @@
             <div class="button" onclick="fillExample('input2')">Insert Example</div>
             <div class="button" onclick="formatInput('input2')">Format</div>
           </div>
+        </section>
+
+        <section>
+          <h2>Settings</h2>
+          <input {% if output_mapping_files %}checked{% endif %} type="checkbox" id="output_mapping_files" name="output_mapping_files">
+          <label for="output_mapping_files">Output SDF Mapping files</label>
         </section>
     </form>
 

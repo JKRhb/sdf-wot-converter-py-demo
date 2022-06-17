@@ -29,9 +29,11 @@ def index():
     input1_type = None
     input2_type = None
     error = None
+    output_mapping_files = None
     if request.method == "POST":
         input1_type, input2_type = _get_input_types(request)
         input1, input2 = _load_inputs(request)
+        output_mapping_files = request.form.get("output_mapping_files") == "on"
 
         try:
             input1, input2 = _process_inputs(request)
@@ -46,6 +48,7 @@ def index():
         input1_type=input1_type,
         input2_type=input2_type,
         error=error,
+        output_mapping_files=output_mapping_files,
     )
 
 
@@ -56,11 +59,11 @@ def _process_inputs(request):
     if command is None:
         raise Exception("Unknown command")
 
-    output = _use_command(command, input)
+    output = _use_command(command, input, form=request.form)
     return _dump_output(request, output)
 
 
-def _use_command(command: str, input: Dict):
+def _use_command(command: str, input: Dict, form=None):
     input, sdf_mapping_files = _get_sdf_input(command, input)
 
     if command == "sdf-to-tm":
@@ -77,6 +80,17 @@ def _use_command(command: str, input: Dict):
         output = convert_wot_td_to_wot_tm(input)
     else:
         output = input
+
+    return process_output(output, command, form)
+
+
+def process_output(output, command: str, form):
+    if form is None:
+        return output
+
+    if command.endswith("-to-sdf") and not form.get("output_mapping_files") == "on":
+        if isinstance(output, tuple):
+            return output[0]
 
     return output
 
