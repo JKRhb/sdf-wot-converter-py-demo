@@ -30,12 +30,13 @@ def index():
     input2_type = None
     error = None
     output_mapping_files = None
-    include_roundtripping = _determine_roundtripping_inclusion(request.form)
+    include_roundtripping = None
 
     if request.method == "POST":
         input1_type, input2_type = _get_input_types(request)
         input1, input2 = _load_inputs(request)
         output_mapping_files = request.form.get("output_mapping_files") == "on"
+        include_roundtripping = _determine_roundtripping_inclusion(request.form)
 
         try:
             input1, input2 = _process_inputs(request)
@@ -126,7 +127,7 @@ def _determine_roundtripping_inclusion(form: Optional[dict]):
     if form is None:
         return True
 
-    return form.get("include_roundtripping", "on") == "on"
+    return form.get("include_roundtripping") == "on"
 
 
 def _load_input(request):
