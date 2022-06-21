@@ -1,4 +1,4 @@
-from typing import Dict
+from typing import Dict, Optional
 from flask import Flask, render_template, request, url_for, jsonify
 from sdf_wot_converter import (
     convert_sdf_to_wot_td,
@@ -30,6 +30,8 @@ def index():
     input2_type = None
     error = None
     output_mapping_files = None
+    include_roundtripping = _determine_roundtripping_inclusion(request.form)
+
     if request.method == "POST":
         input1_type, input2_type = _get_input_types(request)
         input1, input2 = _load_inputs(request)
@@ -49,6 +51,7 @@ def index():
         input2_type=input2_type,
         error=error,
         output_mapping_files=output_mapping_files,
+        include_roundtripping=include_roundtripping,
     )
 
 
@@ -65,17 +68,30 @@ def _process_inputs(request):
 
 def _use_command(command: str, input: Dict, form=None):
     input, sdf_mapping_files = _get_sdf_input(command, input)
+    suppress_roundtripping = not _determine_roundtripping_inclusion(form)
 
     if command == "sdf-to-tm":
-        output = convert_sdf_to_wot_tm(input, sdf_mapping_files=sdf_mapping_files)
+        output = convert_sdf_to_wot_tm(
+            input,
+            sdf_mapping_files=sdf_mapping_files,
+            suppress_roundtripping=suppress_roundtripping,
+        )
     elif command == "sdf-to-td":
-        output = convert_sdf_to_wot_td(input, sdf_mapping_files=sdf_mapping_files)
+        output = convert_sdf_to_wot_td(
+            input,
+            sdf_mapping_files=sdf_mapping_files,
+            suppress_roundtripping=suppress_roundtripping,
+        )
     elif command == "tm-to-sdf":
-        output = convert_wot_tm_to_sdf(input)
+        output = convert_wot_tm_to_sdf(
+            input, suppress_roundtripping=suppress_roundtripping
+        )
     elif command == "tm-to-td":
         output = convert_wot_tm_to_wot_td(input)
     elif command == "td-to-sdf":
-        output = convert_wot_td_to_sdf(input)
+        output = convert_wot_td_to_sdf(
+            input, suppress_roundtripping=suppress_roundtripping
+        )
     elif command == "td-to-tm":
         output = convert_wot_td_to_wot_tm(input)
     else:
@@ -104,6 +120,13 @@ def _get_sdf_input(command: str, input):
         input = input[0]
 
     return input, sdf_mapping_files
+
+
+def _determine_roundtripping_inclusion(form: Optional[dict]):
+    if form is None:
+        return True
+
+    return form.get("include_roundtripping") == "on"
 
 
 def _load_input(request):

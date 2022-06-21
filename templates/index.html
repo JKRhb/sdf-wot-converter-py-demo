@@ -59,6 +59,9 @@
         {% if output_mapping_files == None %}
           {% set output_mapping_files = True %}
         {% endif %}
+        {% if include_roundtripping == None %}
+          {% set include_roundtripping = True %}
+        {% endif %}
 
         <section class="grid">
           <div>
@@ -106,6 +109,8 @@
           <h2>Settings</h2>
           <input {% if output_mapping_files %}checked{% endif %} type="checkbox" id="output_mapping_files" name="output_mapping_files">
           <label for="output_mapping_files">Output SDF Mapping files</label>
+          <input {% if include_roundtripping %}checked{% endif %} type="checkbox" id="include_roundtripping" name="include_roundtripping">
+          <label for="include_roundtripping">Include additional fields for roundtripping</label>
         </section>
     </form>
 
