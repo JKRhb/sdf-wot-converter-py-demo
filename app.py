@@ -126,7 +126,7 @@ def _determine_roundtripping_inclusion(form: Optional[dict]):
     if form is None:
         return True
 
-    return form.get("include_roundtripping") == "on"
+    return form.get("include_roundtripping", "on") == "on"
 
 
 def _load_input(request):
