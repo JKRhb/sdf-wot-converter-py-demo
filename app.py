@@ -24,6 +24,8 @@ def convert(command):
 
         return jsonify(_use_command(command, input))
 
+    return "Input must be JSON!", 415
+
 
 @app.route("/", methods=["GET", "POST"])
 def index():
