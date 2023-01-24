@@ -21,10 +21,23 @@ OPTION_ENABLED = "on"
 def convert(command):
     if request.is_json:
         input = request.json
+        form = get_form_query_parameters(request)
 
-        return jsonify(_use_command(command, input))
+        return jsonify(_use_command(command, input, form=form))
 
     return "Input must be JSON!", 415
+
+
+def get_form_query_parameters(request):
+    form = {}
+
+    for form_field in [
+        INCLUDE_ROUNDTRIPPING_OPTION_KEY,
+        OUTPUT_MAPING_FILES_OPTION_KEY,
+    ]:
+        form[form_field] = request.args.get(form_field)
+
+    return form
 
 
 @app.route("/", methods=["GET", "POST"])
