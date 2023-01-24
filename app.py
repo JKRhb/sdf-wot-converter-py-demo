@@ -12,6 +12,10 @@ import json
 
 app = Flask(__name__)
 
+INCLUDE_ROUNDTRIPPING_OPTION_KEY = "include_roundtripping"
+OUTPUT_MAPING_FILES_OPTION_KEY = "output_mapping_files"
+OPTION_ENABLED = "on"
+
 
 @app.route("/convert/<command>", methods=["POST"])
 def convert(command):
@@ -35,7 +39,9 @@ def index():
     if request.method == "POST":
         input1_type, input2_type = _get_input_types(request)
         input1, input2 = _load_inputs(request)
-        output_mapping_files = request.form.get("output_mapping_files") == "on"
+        output_mapping_files = (
+            request.form.get(OUTPUT_MAPING_FILES_OPTION_KEY) == OPTION_ENABLED
+        )
         include_roundtripping = _determine_roundtripping_inclusion(request.form)
 
         try:
@@ -105,7 +111,10 @@ def process_output(output, command: str, form):
     if form is None:
         return output
 
-    if command.endswith("-to-sdf") and not form.get("output_mapping_files") == "on":
+    if (
+        command.endswith("-to-sdf")
+        and not form.get(OUTPUT_MAPING_FILES_OPTION_KEY) == OPTION_ENABLED
+    ):
         if isinstance(output, tuple):
             return output[0]
 
@@ -127,7 +136,7 @@ def _determine_roundtripping_inclusion(form: Optional[dict]):
     if form is None:
         return True
 
-    return form.get("include_roundtripping") == "on"
+    return form.get(INCLUDE_ROUNDTRIPPING_OPTION_KEY) == OPTION_ENABLED
 
 
 def _load_input(request):
