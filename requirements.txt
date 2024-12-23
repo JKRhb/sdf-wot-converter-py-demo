@@ -1,5 +1,5 @@
 attrs==24.3.0
-click==8.1.7
+click==8.1.8
 colorama==0.4.6
 Flask==3.0.3
 gunicorn==23.0.0
